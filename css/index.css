@@ -1,0 +1,194 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("https://nie.ac.in/wp-content/uploads/2022/10/NIEIT-north-block-e1664798527317.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: #333;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+/* Header Styles */
+header {
+    background-color: #ff5733;
+    color: #a21d1d;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+/* Header Title */
+header h1 {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #4423ca; /* Gold color */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Subtitle */
+header p {
+    margin: 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #ff5733; 
+    padding: 5px 15px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+header:hover {
+    background-color: #c70039;
+}
+
+header img {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 80px;
+    transition: transform 0.3s ease-in-out;
+}
+
+header img:hover {
+    transform: scale(2);
+}
+
+header h1 {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+header p {
+    margin: 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-decoration: underline;
+    letter-spacing: 1px;
+    
+}
+
+/* Navigation Menu */
+.menu {
+    background-color: #ff5733;
+    padding: 1rem 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    gap: 2rem;
+}
+
+.menu ul li {
+    margin: 0;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu ul li a:hover {
+    color: #c70039;
+    transform: scale(1.1);
+}
+
+.menu ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 3px;
+    background: #c70039;
+    transition: width 0.3s ease;
+    margin: 0 auto;
+}
+
+.menu ul li a:hover::after {
+    width: 100%;
+}
+
+/* Section Styles */
+section {
+    padding: 2rem;
+    margin: 1rem auto;
+    max-width: 800px;
+    background-color:white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-left: 5px solid #ff5733;
+    padding-left: 10px;
+    margin-bottom: 1rem;
+}
+
+/* Social Icons */
+.social-icons a {
+    margin: 0 10px;
+    color: #ff5733;
+    font-size: 2rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #c70039;
+    transform: scale(1.2);
+}
+
+/* Contact Us Highlight */
+section h3 {
+    position: relative;
+    display: inline-block;
+    color: #ff5733;
+}
+
+section h3::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50%;
+    height: 3px;
+    background: #c70039;
+    transition: width 0.3s ease;
+}
+
+section h3:hover::after {
+    width: 100%;
+}
