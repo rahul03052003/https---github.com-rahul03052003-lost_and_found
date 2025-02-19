@@ -192,3 +192,40 @@ section h3::after {
 section h3:hover::after {
     width: 100%;
 }
+
+/* Custom Styles */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.hero-section {
+    padding: 100px 0;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ff5733 !important;
+}
+
+footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ff5733 !important;
+}

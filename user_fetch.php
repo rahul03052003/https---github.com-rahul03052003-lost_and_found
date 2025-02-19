@@ -25,7 +25,6 @@
                             <th>Last Seen At</th>
                             <th>Description</th>
                             <th>Photo</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,14 +59,10 @@
                                         <td>" . htmlspecialchars($row['lastseen']) . "</td>
                                         <td>" . htmlspecialchars($row['describeit']) . "</td>
                                         <td><img src='" . $photo_url . "' alt='Item Photo' width='100' onerror='this.onerror=null;this.src=\"default.jpg\";'></td>
-                                        <td>
-                                            <a href='edit_item.php?id=" . $row['id'] . "' class='btn btn-warning btn-sm'>Edit</a>
-                                            <a href='delete_item.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this item?\")'>Delete</a>
-                                        </td>
                                     </tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='9' class='text-center'>No records found</td></tr>";
+                            echo "<tr><td colspan='8' class='text-center'>No records found</td></tr>";
                         }
 
                         $conn->close();

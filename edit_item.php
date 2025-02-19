@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Item updated successfully!'); window.location.href='fetch_items.php';</script>";
+        echo "<script>alert('Item updated successfully!'); window.location.href='fetch.php';</script>";
     } else {
         echo "Error updating record: " . $conn->error;
     }
@@ -96,7 +96,7 @@ $conn->close();
                         <textarea name="describeit" class="form-control" required><?php echo $row['describeit']; ?></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="fetch_items.php" class="btn btn-secondary">Cancel</a>
+                    <a href="fetch.php" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
