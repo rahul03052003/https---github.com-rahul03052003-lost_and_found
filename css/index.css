@@ -15,7 +15,7 @@ body {
 
 /* Header Styles */
 header {
-    background-color: #ff5733;
+    background-color: #ff3369;
     color: #a21d1d;
     padding: 1rem;
     text-align: center;
@@ -41,7 +41,7 @@ header p {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
-    color: #ff5733; 
+    color: #ec285d; 
     padding: 5px 15px;
     display: inline-block;
     border-radius: 5px;
@@ -82,7 +82,7 @@ header p {
 
 /* Navigation Menu */
 .menu {
-    background-color: #ff5733;
+    background-color: #df3a15;
     padding: 1rem 0;
     text-align: center;
     position: sticky;

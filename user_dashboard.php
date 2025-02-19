@@ -14,7 +14,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
     <title>User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css"> <!-- Link to custom styles -->
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         /* Custom styling for the navigation */
         .navbar {
@@ -45,9 +45,6 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
         .navbar-nav .nav-item {
             margin-right: 15px;
         }
-        .navbar-nav .nav-item:last-child {
-            margin-right: 0;
-        }
     </style>
 </head>
 <body>
@@ -66,7 +63,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="index.html">
                             <i class="bi bi-house-door"></i> Home
                         </a>
@@ -79,6 +76,16 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
                     <li class="nav-item">
                         <a class="nav-link" href="user_fetch.php">
                             <i class="bi bi-search"></i> Items Lost
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="found_item.php">
+                            <i class="bi bi-box-seam"></i> Report Found Item
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fetch_found_items.php">
+                            <i class="bi bi-eye"></i> View Found Items
                         </a>
                     </li>
                     <li class="nav-item">

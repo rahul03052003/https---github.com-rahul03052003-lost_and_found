@@ -7,6 +7,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
+    <style>
+        .time-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 0px 0px 8px rgba(255, 204, 0, 0.8);
+        }
+        
+
+        
+    </style>
 </head>
 <body>
     <!-- Header Section -->
@@ -19,46 +30,24 @@
     </header>
 
     <!-- Navigation Menu -->
-    <div class="menu text-center">
+    <nav class="menu text-center">
         <ul class="list-inline">
-            <li class="list-inline-item"><a href="report.html">Lost an Item</a></li>
-            <li class="list-inline-item"><a href="fetch.php">Found Items</a></li>
-            <li class="list-inline-item"><a href="user_fetch.php">Items in Database</a></li>
-            <li class="list-inline-item"><a href="about.html">About Us</a></li>
-            <li class="list-inline-item"><a href="contact.html">Contact Us</a></li>
+            <li class="list-inline-item"><a href="report.html"><i class="bi bi-pencil-square"></i> Lost an Item</a></li>
+            <li class="list-inline-item"><a href="found_item.php"><i class="bi bi-box-seam"></i> Found Items</a></li>
+            <li class="list-inline-item"><a href="fetch_found_items.php"><i class="bi bi-eye"></i> View Found Items</a></li>
+            <li class="list-inline-item"><a href="user_fetch.php"><i class="bi bi-database"></i> Items in Database</a></li>
+            <li class="list-inline-item"><a href="about.html"><i class="bi bi-info-circle"></i> About Us</a></li>
+            <li class="list-inline-item"><a href="contact.html"><i class="bi bi-envelope"></i> Contact Us</a></li>
         </ul>
-    </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center text-white py-5" style="background-color:#CECECE; background-size: cover; background-position: center; background-repeat: no-repeat;">
-      
+    <section class="hero-section text-center text-white py-5" style="background-color:#CECECE;">
         <div class="container">
             <h2>Lost Something? We Can Help!</h2>
-            <p>Report a lost item or check the database for found items. Our system helps connect lost items with their rightful owners. </p>
+            <p>Report a lost item or check the database for found items.</p>
             <a href="report.html" class="btn btn-dark btn-lg">Report a Lost Item</a>
-            <a href="" class="btn btn-light btn-lg">View Found Items</a>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="container my-5">
-        <h2 class="text-center">How It Works</h2>
-        <div class="row text-center">
-            <div class="col-md-4">
-                <i class="bi bi-pencil-square" style="font-size: 3rem; color: #ff5733;"></i>
-                <h4>1. Report Lost Items</h4>
-                <p>Fill in details about your lost item and submit the report.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="bi bi-search" style="font-size: 3rem; color: #ff5733;"></i>
-                <h4>2. Search Found Items</h4>
-                <p>Check the database to see if someone has reported your lost item.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="bi bi-hand-thumbs-up" style="font-size: 3rem; color: #ff5733;"></i>
-                <h4>3. Claim Your Item</h4>
-                <p>Once matched, contact the person who found your item.</p>
-            </div>
+            <a href="fetch_found_items.php" class="btn btn-light btn-lg">View Found Items</a>
         </div>
     </section>
 
@@ -99,12 +88,28 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer with Time Display -->
     <footer class="text-center bg-dark text-white py-3">
         <p>&copy; 2025 Lost & Found Tracker | All Rights Reserved</p>
         <p>Developed by <a href="#" class="text-warning">NIE Boys</a></p>
+        <p class="time-display"><i class="bi bi-clock"></i> <span id="currentTime"></span></p>
     </footer>
 
+    <!-- Bootstrap & JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+
+
+        // Time Display
+        function updateTime() {
+            let now = new Date();
+            let timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            document.getElementById("currentTime").innerHTML = timeString;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
 </body>
 </html>
