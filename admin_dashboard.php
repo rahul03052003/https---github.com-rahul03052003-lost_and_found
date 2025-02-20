@@ -18,7 +18,7 @@ function getCount($conn, $query) {
 }
 
 // Fetch statistics dynamically from the database
-$total_users = getCount($conn, "SELECT COUNT(*) FROM users");
+$total_users = getCount($conn, "SELECT COUNT(role) FROM users where role='user'");
 $lost_items = getCount($conn, "SELECT COUNT(*) FROM lost_items");
 $found_items = getCount($conn, "SELECT COUNT(*) FROM found_items");
 $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_id IS NOT NULL");

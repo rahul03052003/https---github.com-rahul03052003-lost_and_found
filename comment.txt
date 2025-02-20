@@ -1,0 +1,128 @@
+claim_item.php
+Here's the claim_item.php file. This page allows users to submit a claim request for a found item by filling out a form.
+
+php
+Copy
+Edit
+<?php
+session_start();
+include 'db_connection.php';
+
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+// Check if item ID is provided
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    die("Invalid request.");
+}
+
+$item_id = intval($_GET['id']);
+
+// Fetch item details
+$sql = "SELECT * FROM found_items WHERE id = $item_id";
+$result = $conn->query($sql);
+
+if (!$result || $result->num_rows == 0) {
+    die("Item not found.");
+}
+
+$item = $result->fetch_assoc();
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $claimer_name = mysqli_real_escape_string($conn, $_POST['claimer_name']);
+    $claimer_email = mysqli_real_escape_string($conn, $_POST['claimer_email']);
+    $claimer_phone = mysqli_real_escape_string($conn, $_POST['claimer_phone']);
+    $proof_description = mysqli_real_escape_string($conn, $_POST['proof_description']);
+
+    $insert_query = "INSERT INTO claims (item_id, claimer_name, claimer_email, claimer_phone, proof_description, status) 
+                     VALUES ($item_id, '$claimer_name', '$claimer_email', '$claimer_phone', '$proof_description', 'Pending')";
+
+    if ($conn->query($insert_query) === TRUE) {
+        echo "<script>alert('Claim submitted successfully! Admin will review it.'); window.location.href='fetch_found_items.php';</script>";
+    } else {
+        echo "Error: " . $insert_query . "<br>" . $conn->error;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Found Item</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">📝 Claim Item: <?php echo htmlspecialchars($item['item_name']); ?></h2>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Item Details</h5>
+                <p><strong>Description:</strong> <?php echo htmlspecialchars($item['description']); ?></p>
+                <p><strong>Found Location:</strong> <?php echo htmlspecialchars($item['location']); ?></p>
+                <p><strong>Date Found:</strong> <?php echo htmlspecialchars($item['date_found']); ?></p>
+                
+                <?php if (!empty($item['image'])): ?>
+                    <img src="<?php echo htmlspecialchars($item['image']); ?>" width="200" height="200" class="rounded">
+                <?php else: ?>
+                    <p class="text-muted">No Image Available</p>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <form action="" method="post" class="mt-4">
+            <div class="mb-3">
+                <label for="claimer_name" class="form-label">Your Name</label>
+                <input type="text" name="claimer_name" id="claimer_name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="claimer_email" class="form-label">Your Email</label>
+                <input type="email" name="claimer_email" id="claimer_email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="claimer_phone" class="form-label">Your Phone</label>
+                <input type="text" name="claimer_phone" id="claimer_phone" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="proof_description" class="form-label">Provide Proof of Ownership</label>
+                <textarea name="proof_description" id="proof_description" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Claim</button>
+            <a href="fetch_found_items.php" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
+How It Works:
+Retrieves the found item’s details from the database.
+Displays item details and an image (if available).
+User fills out a form with their details and proof of ownership.
+Stores the claim request in a claims table for admin review.
+Redirects back to fetch_found_items.php after submission.
+SQL Table for Claims (claims):
+sql
+Copy
+Edit
+CREATE TABLE claims (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    item_id INT NOT NULL,
+    claimer_name VARCHAR(255) NOT NULL,
+    claimer_email VARCHAR(255) NOT NULL,
+    claimer_phone VARCHAR(20) NOT NULL,
+    proof_description TEXT NOT NULL,
+    status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES found_items(id) ON DELETE CASCADE
+);
+Next Steps:
+Add an admin panel where admins can approve/reject claims.
+Notify users about the claim status via email or dashboard.
+Let me know if you need any modifications! 🚀

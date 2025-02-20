@@ -57,6 +57,7 @@ $result = $conn->query($sql);
                             </td>
                             <td>
                                 <a href="update.php?id=<?php echo $row['id']; ?>" class="btn btn-warning btn-sm">Update</a>
+                                <a href="?id=<?php echo $row['id']; ?>" class="btn btn-success btn-sm">It's Mine</a>
                             </td>
                         </tr>
                     <?php } ?>
