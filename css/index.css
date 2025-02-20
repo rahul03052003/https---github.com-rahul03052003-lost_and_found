@@ -167,7 +167,7 @@ h2 {
 }
 
 .social-icons a:hover {
-    color: #c70039;
+    color: #e120d1;
     transform: scale(1.2);
 }
 
@@ -185,7 +185,7 @@ section h3::after {
     left: 0;
     width: 50%;
     height: 3px;
-    background: #c70039;
+    background: #d62d5d;
     transition: width 0.3s ease;
 }
 

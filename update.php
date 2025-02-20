@@ -99,7 +99,7 @@ if (!$item) {
             </div>
             <div class="mb-3">
                 <label class="form-label">Mobile</label>
-                <input type="tel" class="form-control" name="mobile" value="<?php echo htmlspecialchars($item['mobile']); ?>" required>
+                <input type="tel" class="form-control" name="mobile" maxlength="10" pattern="[1-9]{1}[0-9]{9}" value="<?php echo htmlspecialchars($item['mobile']); ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>

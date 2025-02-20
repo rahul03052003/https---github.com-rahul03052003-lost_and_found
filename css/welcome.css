@@ -1,0 +1,127 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navigation Bar */
+.navbar {
+    padding: 1rem 2rem;
+    background-color: #343a40 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #fff !important;
+}
+
+.navbar-brand i {
+    margin-right: 0.5rem;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+    margin-left: 1.5rem;
+    color: #fff !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff !important;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content .btn {
+    font-size: 1.2rem;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-content .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+}
+
+/* Call-to-Action Section */
+.cta-section {
+    padding: 6rem 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.cta-content i {
+    margin-bottom: 1.5rem;
+    color: #007bff;
+    transition: transform 0.3s ease;
+}
+
+.cta-content i:hover {
+    transform: scale(1.1);
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+.cta-content .btn {
+    font-size: 1.1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-content .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+}
+
+/* Footer */
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.footer p {
+    margin: 0;
+}
