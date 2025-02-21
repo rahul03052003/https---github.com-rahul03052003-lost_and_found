@@ -1,127 +1,202 @@
 /* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Arial', sans-serif; /* Changed font for a modern feel */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     color: #333;
     line-height: 1.6;
+    background-color: #f4f4f4; /* Light gray background for the whole page */
 }
 
 /* Navigation Bar */
 .navbar {
     padding: 1rem 2rem;
-    background-color: #343a40 !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #2c3e50 !important; /* Darker background for better contrast */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    transition: background-color 0.3s ease;
+}
+
+.navbar:hover {
+    background-color: #34495e !important; /* Slightly lighter on hover */
 }
 
 .navbar-brand {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: #fff !important;
+    font-size: 1.8rem; /* Slightly bigger brand name */
+    font-weight: 700; /* Bolder brand name */
+    color: #ecf0f1 !important; /* Light color for the brand name */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .navbar-brand i {
     margin-right: 0.5rem;
+    color: #f1c40f; /* A pop of color for the icon */
 }
 
 .navbar-nav .nav-link {
     font-size: 1.1rem;
     margin-left: 1.5rem;
-    color: #fff !important;
-    transition: color 0.3s ease;
+    color: #ecf0f1 !important; /* Light color for nav links */
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 0.5rem 1rem; /* Add some padding */
+    border-radius: 5px;
 }
 
 .navbar-nav .nav-link:hover {
-    color: #007bff !important;
+    
+color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1535333241706-54b350105a6d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover; /* Added a new placeholder */
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #fff;
+    position: relative; /* For the overlay */
+    overflow: hidden; /* To hide the overflow */
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Dark overlay for better text readability */
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1; /* To put the text above the overlay */
 }
 
 .hero-content h1 {
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: 4.5rem; /* Slightly larger title */
+    font-weight: 800;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Stronger text shadow */
 }
 
 .hero-content p {
-    font-size: 1.5rem;
+    font-size: 1.7rem; /* Slightly larger paragraph */
     margin-bottom: 2rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Stronger text shadow */
 }
 
 .hero-content .btn {
-    font-size: 1.2rem;
-    padding: 0.75rem 2rem;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1.3rem;
+    padding: 0.8rem 2.5rem;
+    border-radius: 30px; /* More rounded button */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f1c40f; /* Yellow for primary action */
+    color: #333;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content .btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-5px);
+    background-color: #e6b800; /* Darker yellow on hover */
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
 }
 
 /* Call-to-Action Section */
 .cta-section {
     padding: 6rem 0;
-    background-color: #f8f9fa;
+    background-color: #ecf0f1; /* Light gray background */
     text-align: center;
+}
+
+.cta-content {
+    background-color: #fff; /* White content box */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow */
 }
 
 .cta-content i {
     margin-bottom: 1.5rem;
-    color: #007bff;
-    transition: transform 0.3s ease;
+    color: #f1c40f; /* Yellow for the icon */
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .cta-content i:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    color: #e6b800; /* Darker yellow on hover */
 }
 
 .cta-content h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
+    font-size: 2.7rem; /* Slightly larger title */
+    font-weight: 700;
     margin-bottom: 1rem;
+    color: #2c3e50; /* Darker text */
 }
 
 .cta-content p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: #666;
+    color: #555;
 }
 
 .cta-content .btn {
-    font-size: 1.1rem;
-    padding: 0.75rem 2rem;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1.2rem;
+    padding: 0.8rem 2.2rem;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #2980b9; /* Blue button */
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .cta-content .btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-5px);
+    background-color: #1f618d; /* Darker blue on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Footer */
 .footer {
-    background-color: #343a40;
-    color: #fff;
+    background-color: #2c3e50; /* Dark footer */
+    color: #ecf0f1; /* Light text */
     text-align: center;
     padding: 1.5rem 0;
     font-size: 1rem;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Shadow for depth */
 }
 
 .footer p {
     margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.4rem;
+    }
+
+    .navbar-brand {
+
+        font-size: 1.5rem;
+    }
+
+    .navbar-nav .nav-link {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .cta-content h2 {
+        font-size: 2.2rem;
+    }
 }
