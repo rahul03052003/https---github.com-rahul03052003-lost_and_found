@@ -52,7 +52,7 @@ session_start();
                         <textarea id="describeit" name="description" class="form-control" rows="3" placeholder="Describe the item in detail" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="photo" class="form-label">Upload Photo (Optional):</label>
+                        <label for="photo" class="form-label">Upload Photo :</label>
                         <input type="file" id="photo" name="image" class="form-control" accept="image/*">
                     </div>
                     <button type="submit" class="btn btn-success w-100">Submit Found Item</button>

@@ -15,7 +15,7 @@ body {
 
 /* Header Styles */
 header {
-    background-color: #ff3369;
+    background-color: #9324d8;
     color: #a21d1d;
     padding: 1rem;
     text-align: center;
@@ -41,14 +41,14 @@ header p {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
-    color: #ec285d; 
+    color: #7e3ef4; 
     padding: 5px 15px;
     display: inline-block;
     border-radius: 5px;
 }
 
 header:hover {
-    background-color: #c70039;
+    background-color: #e65880;
 }
 
 header img {
@@ -115,7 +115,7 @@ header p {
 }
 
 .menu ul li a:hover {
-    color: #c70039;
+    color: #7e37ef;
     transform: scale(1.1);
 }
 
@@ -185,7 +185,7 @@ section h3::after {
     left: 0;
     width: 50%;
     height: 3px;
-    background: #d62d5d;
+    background: #7c4ecb;
     transition: width 0.3s ease;
 }
 

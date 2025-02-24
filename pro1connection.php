@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<script>
                 setTimeout(function() {
                     window.location.href = 'index.html';
-                }, 3000);
+                }, 2000);
               </script>";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;

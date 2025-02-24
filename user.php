@@ -30,6 +30,7 @@ if (!$result) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,6 +60,7 @@ if (!$result) {
         }
     </style>
 </head>
+
 <body>
     <header class="bg-danger text-white text-center py-3">
         <h1>Manage Users</h1>
@@ -70,37 +72,37 @@ if (!$result) {
                 <h2 class="card-title text-danger text-center">👥 Registered Users</h2>
 
                 <?php if ($result->num_rows > 0): ?>
-                <table class="table table-bordered table-striped mt-4">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Role</th>
-                            <th>Registered Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row['id']) ?></td>
-                            <td><?= htmlspecialchars($row['username']) ?></td>
-                            <td><?= htmlspecialchars($row['role']) ?></td>
-                            <td><?= htmlspecialchars($row['created_at']) ?></td>
-                            <td>
-                                <a href="edit_user.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil"></i> Edit
-                                </a>
-                                <a href="delete_user.php?id=<?= $row['id'] ?>" 
-                                   class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('Are you sure you want to delete this user?');">
-                                    <i class="bi bi-trash"></i> Delete
-                                </a>
-                            </td>
-                        </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
+                    <table class="table table-bordered table-striped mt-4">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Registered Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $result->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($row['id']) ?></td>
+                                    <td><?= htmlspecialchars($row['username']) ?></td>
+                                    <td><?= htmlspecialchars($row['role']) ?></td>
+                                    <td><?= htmlspecialchars($row['created_at']) ?></td>
+                                    <td>
+                                        <a href="edit_user.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                        <a href="delete_user.php?id=<?= $row['id'] ?>" 
+                                           class="btn btn-danger btn-sm" 
+                                           onclick="return confirm('Are you sure you want to delete this user?');">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
                 <?php else: ?>
                     <div class="alert alert-warning text-center">
                         ⚠ No users found in the database.
@@ -120,6 +122,7 @@ if (!$result) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 <?php $conn->close(); ?>

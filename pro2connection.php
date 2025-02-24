@@ -18,6 +18,6 @@ if ($conn->connect_error) {
     exit();
 } else {
     // Connection successful (You can remove this if you don't want the success message)
-    // echo "<p>Connected successfully to the database.</p>";
+     //echo "<p>Submitted successfully to the database.</p>";
 }
 ?>

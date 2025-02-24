@@ -3,7 +3,6 @@ session_start();
 include 'pro2connection.php'; // Include the database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and validate form inputs
     $username = isset($_POST['username']) ? $conn->real_escape_string($_POST['username']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
     $role = isset($_POST['role']) ? $_POST['role'] : 'user'; // Default role
@@ -11,8 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username) || empty($password)) {
         $error = "Username and password are required.";
     } else {
-        // Hash the password using sha256 (instead of password_hash)
-        $passwordHash = hash('sha256', $password); // Using sha256 for hashing
+        $passwordHash = hash('sha256', $password); // Hash the password with SHA-256
 
         // Check if username already exists
         $sql_check = "SELECT * FROM users WHERE username = '$username'";
@@ -20,13 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result_check->num_rows > 0) {
             $error = "Username already exists. Please choose a different username.";
         } else {
-            // Insert the new user into the database
+            // Insert new user
             $sql = "INSERT INTO users (username, password, role) VALUES ('$username', '$passwordHash', '$role')";
 
             if ($conn->query($sql) === TRUE) {
-                // Redirect to login after successful registration
-                header("Location: login.php");
-                exit();
+                $success = "Registration successful! You can now <a href='login.php'>login here</a>.";
             } else {
                 $error = "Error: " . $conn->error;
             }
@@ -48,6 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <?php if (isset($error)): ?>
             <div class="alert alert-danger"><?php echo $error; ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($success)): ?>
+            <div class="alert alert-success"><?php echo $success; ?></div>
         <?php endif; ?>
 
         <form method="POST" action="">
