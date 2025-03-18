@@ -5,23 +5,24 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
     exit();
 }
 
-include 'pro2connection.php'; 
+include 'pro2connection.php';
 
 // Function to get count from database
 function getCount($conn, $query) {
     $result = $conn->query($query);
     if (!$result) {
-        die("Query failed: " . $conn->error); // Debugging for errors
+        die("Query failed: " . $conn->error);
     }
     $row = $result->fetch_array();
     return $row[0];
 }
 
-// Fetch statistics dynamically from the database
-$total_users = getCount($conn, "SELECT COUNT(role) FROM users where role='user'");
+// Fetch statistics dynamically
+$total_users = getCount($conn, "SELECT COUNT(role) FROM users WHERE role='user'");
 $lost_items = getCount($conn, "SELECT COUNT(*) FROM lost_items");
 $found_items = getCount($conn, "SELECT COUNT(*) FROM found_items");
-$resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_id IS NOT NULL");
+$resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE status = 'Resolved'");
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +36,7 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_i
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- 🔹 Updated Navbar with "Manage Claims" -->
     <nav class="navbar navbar-expand-lg navbar-light bg-danger shadow">
         <div class="container-fluid">
             <a class="navbar-brand text-white fw-bold" href="#">Admin Panel</a>
@@ -43,10 +45,11 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_i
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="fetch.php">View Lost Items</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="user.php">Manage Users</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="admin_view_found_items.php">View Found Items</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="admin_view_claims.php">Manage Claims</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
                 </ul>
             </div>
@@ -55,6 +58,8 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_i
 
     <div class="container mt-5">
         <h2 class="text-center">Welcome, <?= htmlspecialchars($_SESSION['username']); ?>!</h2>
+
+        <!-- Dashboard Statistics -->
         <div class="row text-center mt-4">
             <div class="col-md-3">
                 <div class="card shadow p-3 border-primary">
@@ -82,6 +87,7 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_i
             </div>
         </div>
 
+        <!-- Recent Reports & Announcements -->
         <div class="mt-5">
             <h3 class="text-center">Recent Reports</h3>
             <ul class="list-group">

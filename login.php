@@ -48,8 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         /* Custom CSS */
         body {
-            background-color: #f4f7fc;
+            background-image: url('https://nie.ac.in/wp-content/uploads/2022/09/North2.png');
             font-family: 'Arial', sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
         .login-container {
             max-width: 400px;

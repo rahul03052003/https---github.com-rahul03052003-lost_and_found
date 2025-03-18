@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +7,25 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="#">User Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="user_report.html">Report Lost Item</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="user_fetch.php">Items Lost</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="found_item.php">Report Found Item</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="fetch_found_items.php">View Found Items</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <header class="bg-success text-white text-center py-3">
         <h1>Report Found Item</h1>
     </header>
@@ -56,6 +71,7 @@ session_start();
                         <input type="file" id="photo" name="image" class="form-control" accept="image/*">
                     </div>
                     <button type="submit" class="btn btn-success w-100">Submit Found Item</button>
+                    <a href="user_dashboard.php" class="btn btn-secondary w-100 mt-3">🔙 Back to Dashboard</a>
                 </form>
             </div>
         </div>

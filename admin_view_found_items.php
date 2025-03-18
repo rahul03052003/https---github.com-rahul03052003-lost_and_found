@@ -39,8 +39,13 @@ if (isset($_GET['delete_id'])) {
 }
 
 // Fetch all found items
-$sql = "SELECT id, item_name, description, location, mobile, email, date_found, image FROM found_items";
-$result = $conn->query($sql);
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$sql = "SELECT id, item_name, description, location, mobile, email, date_found, image FROM found_items WHERE item_name LIKE ?";
+$stmt = $conn->prepare($sql);
+$search_param = "%$search%";
+$stmt->bind_param("s", $search_param);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -52,19 +57,68 @@ $result = $conn->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header class="bg-dark text-white text-center py-3">
-        <h1>Admin Panel - Found Items</h1>
-    </header>
+<style>
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .header-container {
+            background: linear-gradient(135deg, #dc3545, #ff6b81);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            margin-top: 20px; /* Added space between Admin Panel and header */
+        }
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- ✅ Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="#">Admin Panel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="admin_view_found_items.php">View Found Items</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="fetch.php">View Lost Items</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="user.php">Manage Users</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>Admin Panel - Found Item</h1>
+        </div>
+    </div>
+
+     <!-- ✅ Search Bar -->
+     <div class="container mt-4">
+        <form action="" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="🔍 Search by Item Name..." value="<?php echo htmlspecialchars($search); ?>">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="fetch.php" class="btn btn-secondary ms-2">Reset</a>
+        </form>
+    </div>
     <div class="container my-4">
         <div class="card shadow">
             <div class="card-body">
                 <h2 class="card-title text-danger text-center">📋 Found Items List</h2>
 
+
                 <?php if ($result && $result->num_rows > 0) { ?>
                     <table class="table table-bordered table-striped mt-4">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
                                 <th>Item Name</th>
                                 <th>Description</th>
                                 <th>Location</th>
@@ -78,7 +132,6 @@ $result = $conn->query($sql);
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()) { ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($row['id']); ?></td>
                                     <td><?php echo htmlspecialchars($row['item_name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['description']); ?></td>
                                     <td><?php echo htmlspecialchars($row['location']); ?></td>

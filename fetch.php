@@ -7,8 +7,14 @@ if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
 }
 
-// Fetch all lost items
+// Check if a search term is provided
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+// Fetch lost items based on search input
 $sql = "SELECT id, name, reg_no, item_name, brand, phno, lastseen, describeit, photo_path FROM lost_items";
+if (!empty($search)) {
+    $sql .= " WHERE item_name LIKE '%$search%'";
+}
 $result = $conn->query($sql);
 ?>
 
@@ -19,11 +25,58 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch Lost Items</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .header-container {
+            background: linear-gradient(135deg, #dc3545, #ff6b81);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+        }
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
-    <header class="bg-danger text-white text-center py-3">
-        <h1>Lost Items List</h1>
-    </header>
+    <!-- ✅ Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="#">Admin Panel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="admin_view_found_items.php">View Found Items</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="fetch.php">View Lost Items</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="user.php">Manage Users</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>Lost Items List</h1>
+        </div>
+    </div>
+
+    <!-- ✅ Search Bar -->
+    <div class="container mt-4">
+        <form action="" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="🔍 Search by Item Name..." value="<?php echo htmlspecialchars($search); ?>">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="fetch.php" class="btn btn-secondary ms-2">Reset</a>
+        </form>
+    </div>
+
     <div class="container my-4">
         <div class="card shadow">
             <div class="card-body">

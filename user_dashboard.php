@@ -20,7 +20,8 @@ function getCount($conn, $query) {
 // Fetch statistics dynamically from the database
 $lost_items = getCount($conn, "SELECT COUNT(*) FROM lost_items");
 $found_items = getCount($conn, "SELECT COUNT(*) FROM found_items");
-$resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_id IS NOT NULL");
+$resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE status = 'Resolved'");
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +44,7 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_i
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="report.html">Report Lost Item</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="user_report.html">Report Lost Item</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="user_fetch.php">Items Lost</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="found_item.php">Report Found Item</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="fetch_found_items.php">View Found Items</a></li>
@@ -64,13 +65,13 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_i
             </div>
             <div class="col-md-4">
                 <div class="card shadow p-3 border-success">
-                    <h3 class="text-success fw-bold"><?= $found_items ; ?></h3>
+                    <h3 class="text-success fw-bold"><?= $found_items; ?></h3>
                     <p>Items Found</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card shadow p-3 border-warning">
-                    <h3 class="text-warning fw-bold"><?= $resolved_cases ; ?></h3>
+                    <h3 class="text-warning fw-bold"><?= $resolved_cases; ?></h3>
                     <p>Resolved Cases</p>
                 </div>
             </div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Lost Item</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="#">User Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="report.html">Report Lost Item</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="user_fetch.php">Items Lost</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="found_item.php">Report Found Item</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="fetch_found_items.php">View Found Items</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="card-title text-danger text-center">📌 Report a Lost Item</h2>
+                <form action="pro1connection.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" id="name" name="uname" class="form-control" placeholder="Your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reg-no" class="form-label">Registration Number:</label>
+                        <input type="text" id="reg-no" name="reg_no" class="form-control" placeholder="UNS Number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="item-name" class="form-label">Item Type:</label>
+                        <input type="text" id="item-name" name="item_name" class="form-control" placeholder="e.g., water bottle, mobile phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">Brand Name:</label>
+                        <input type="text" id="brand" name="brand" class="form-control" placeholder="e.g., Wildcraft, Tupperware" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Lost Date:</label>
+                        <input type="date" id="date" name="phno" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneno" class="form-label">Contact Number:</label>
+                        <input type="tel" id="phoneno" name="phno" class="form-control" maxlength="10" pattern="[1-9]{1}[0-9]{9}" placeholder="+91 **********" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastseen" class="form-label">Last Seen At:</label>
+                        <textarea id="lastseen" name="lastseen" class="form-control" rows="3" placeholder="e.g., Classroom no. 30" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="describeit" class="form-label">Describe the Item:</label>
+                        <textarea id="describeit" name="describeit" class="form-control" rows="3" placeholder="Describe the item in detail, e.g., name on it, design" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Photo (Optional):</label>
+                        <input type="file" id="photo" name="photo" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">🚀 Submit Report</button>
+                    <a href="user_dashboard.php" class="btn btn-secondary w-100 mt-3">🔙 Back to Dashboard</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
