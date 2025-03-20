@@ -5,23 +5,45 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'user') {
     exit();
 }
 
-include 'pro2connection.php'; // Ensure database connection is included
+include 'pro2connection.php'; // Database connection
+
+$username = $_SESSION['username']; // Get the logged-in user's username
 
 // Function to get count from database
 function getCount($conn, $query) {
     $result = $conn->query($query);
     if (!$result) {
-        die("Query failed: " . $conn->error); // Debugging for errors
+        die("Query failed: " . $conn->error);
     }
     $row = $result->fetch_array();
     return $row[0];
 }
 
-// Fetch statistics dynamically from the database
-$lost_items = getCount($conn, "SELECT COUNT(*) FROM lost_items");
-$found_items = getCount($conn, "SELECT COUNT(*) FROM found_items");
-$resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE status = 'Resolved'");
+// Fetch statistics
+$lost_items = getCount($conn, "SELECT COUNT(*) FROM lost_items WHERE name = '$username'");
+$found_items = getCount($conn, "SELECT COUNT(*) FROM found_items WHERE user_id IS NULL"); // Assuming NULL means user-reported items
+$resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE finder_email = '$username' AND status = 'Resolved'");
 
+// Fetch recent activities dynamically
+$activities = [];
+$activity_query = "
+    (SELECT 'Lost Item Reported' AS type, item_name AS details, created_at AS date 
+     FROM lost_items WHERE name = '$username') 
+    UNION 
+    (SELECT 'Found Item Reported' AS type, item_name AS details, date_found AS date 
+     FROM found_items WHERE user_id IS NULL) 
+    UNION 
+    (SELECT 'Claim Request Submitted' AS type, CONCAT('Claimed Item ID: ', item_id) AS details, created_at AS date 
+     FROM claim_requests WHERE claimer_email = '$username')
+    ORDER BY date DESC LIMIT 5
+";
+
+$result = $conn->query($activity_query);
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $activities[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +78,8 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE sta
 
     <div class="container mt-5">
         <h2 class="text-center">Welcome, <?= htmlspecialchars($_SESSION['username']); ?>!</h2>
+        
+        <!-- Dashboard Statistics -->
         <div class="row text-center mt-4">
             <div class="col-md-4">
                 <div class="card shadow p-3 border-danger">
@@ -77,15 +101,24 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE sta
             </div>
         </div>
 
+        <!-- Dynamic Recent Activity Section -->
         <div class="mt-5">
             <h3 class="text-center">Recent Activity</h3>
             <ul class="list-group">
-                <li class="list-group-item">📌 You reported a lost phone on <strong>Feb 15, 2025</strong></li>
-                <li class="list-group-item">✅ Your lost wallet was found on <strong>Feb 10, 2025</strong></li>
-                <li class="list-group-item">🔍 You searched for lost items on <strong>Feb 8, 2025</strong></li>
+                <?php if (!empty($activities)): ?>
+                    <?php foreach ($activities as $activity): ?>
+                        <li class="list-group-item">
+                            <strong><?= $activity['type']; ?>:</strong> <?= htmlspecialchars($activity['details']); ?>
+                            <span class="text-muted float-end"><?= date("M d, Y", strtotime($activity['date'])); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li class="list-group-item text-center text-muted">No recent activities.</li>
+                <?php endif; ?>
             </ul>
         </div>
 
+        <!-- Announcements -->
         <div class="mt-4">
             <h3 class="text-center">📢 Announcements</h3>
             <div class="alert alert-info">🔔 New Feature: You can now upload images for lost items!</div>

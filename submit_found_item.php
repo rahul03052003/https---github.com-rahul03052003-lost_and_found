@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("isssssss", $user_id, $item_name, $description, $location, $date_found, $mobile, $email, $image);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Item reported successfully!'); window.location='user_dashboard.php';</script>";
+        echo "<script>alert('Item reported successfully!'); window.location='index.html';</script>";
     } else {
         echo "Error: " . $stmt->error;
     }

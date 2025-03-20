@@ -20,6 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-header("Location: admin_manage_claims.php");
+header("Location: admin_view_claims.php");
 exit();
 ?>

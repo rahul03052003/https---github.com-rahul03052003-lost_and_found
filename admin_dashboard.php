@@ -5,7 +5,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
     exit();
 }
 
-include 'pro2connection.php';
+include 'pro2connection.php'; // Database connection
 
 // Function to get count from database
 function getCount($conn, $query) {
@@ -17,12 +17,32 @@ function getCount($conn, $query) {
     return $row[0];
 }
 
-// Fetch statistics dynamically
-$total_users = getCount($conn, "SELECT COUNT(role) FROM users WHERE role='user'");
+// Fetch statistics
+$total_users = getCount($conn, "SELECT COUNT(*) FROM users WHERE role='user'");
 $lost_items = getCount($conn, "SELECT COUNT(*) FROM lost_items");
 $found_items = getCount($conn, "SELECT COUNT(*) FROM found_items");
 $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE status = 'Resolved'");
 
+// Fetch recent reports
+$recent_reports = [];
+$report_query = "
+    (SELECT 'Lost Item Reported' AS type, item_name AS details, created_at AS date 
+     FROM lost_items) 
+    UNION 
+    (SELECT 'Found Item Reported' AS type, item_name AS details, date_found AS date 
+     FROM found_items) 
+    UNION 
+    (SELECT 'Claim Resolved' AS type, CONCAT('Claimed Item ID: ', item_id) AS details, created_at AS date 
+     FROM claim_requests WHERE status = 'Resolved')
+    ORDER BY date DESC LIMIT 5
+";
+
+$result = $conn->query($report_query);
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $recent_reports[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +56,8 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE sta
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- 🔹 Updated Navbar with "Manage Claims" -->
+
+    <!-- 🔹 Navbar with "Manage Claims" -->
     <nav class="navbar navbar-expand-lg navbar-light bg-danger shadow">
         <div class="container-fluid">
             <a class="navbar-brand text-white fw-bold" href="#">Admin Panel</a>
@@ -87,16 +108,24 @@ $resolved_cases = getCount($conn, "SELECT COUNT(*) FROM claim_requests WHERE sta
             </div>
         </div>
 
-        <!-- Recent Reports & Announcements -->
+        <!-- Dynamic Recent Reports -->
         <div class="mt-5">
             <h3 class="text-center">Recent Reports</h3>
             <ul class="list-group">
-                <li class="list-group-item">📌 User John reported a lost laptop on <strong>Feb 15, 2025</strong></li>
-                <li class="list-group-item">✅ A lost phone was found by User Jane on <strong>Feb 10, 2025</strong></li>
-                <li class="list-group-item">🔍 5 new lost item reports submitted today.</li>
+                <?php if (!empty($recent_reports)): ?>
+                    <?php foreach ($recent_reports as $report): ?>
+                        <li class="list-group-item">
+                            <strong><?= $report['type']; ?>:</strong> <?= htmlspecialchars($report['details']); ?>
+                            <span class="text-muted float-end"><?= date("M d, Y", strtotime($report['date'])); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li class="list-group-item text-center text-muted">No recent reports.</li>
+                <?php endif; ?>
             </ul>
         </div>
 
+        <!-- Announcements -->
         <div class="mt-4">
             <h3 class="text-center">📢 Announcements</h3>
             <div class="alert alert-info">🔔 New Feature: Admins can now directly approve found item reports!</div>

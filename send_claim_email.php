@@ -12,14 +12,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $claimer_email = isset($_POST['claimer_email']) ? filter_var($_POST['claimer_email'], FILTER_SANITIZE_EMAIL) : '';
     $claimer_message = isset($_POST['claimer_message']) ? htmlspecialchars($_POST['claimer_message']) : '';
 
-    if (empty($finder_email) || empty($claimer_email) || empty($claimer_message)) {
-        die("Error: All fields are required.");
+    // Validate email addresses
+    if (!filter_var($finder_email, FILTER_VALIDATE_EMAIL) || !filter_var($claimer_email, FILTER_VALIDATE_EMAIL)) {
+        die("Error: Invalid email address.");
+    }
+
+    if (empty($claimer_message)) {
+        die("Error: Message cannot be empty.");
     }
 
     // Insert claim request into database
     $stmt = $conn->prepare("INSERT INTO claim_requests (item_id, claimer_email, claimer_message, finder_email) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("isss", $item_id, $claimer_email, $claimer_message, $finder_email);
-    $stmt->execute();
+    
+    if (!$stmt->execute()) {
+        die("Database error: " . $stmt->error);
+    }
+    
     $stmt->close();
 
     // Send email notification to the finder
@@ -29,9 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'travel19122003@gmail.com';
-        $mail->Password = 'mdvi jcrj opmr gtpi';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+        $mail->Password = 'mdvi jcrj opmr gtpi'; // Use Gmail App Password
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
 
         $mail->setFrom($claimer_email, 'Lost & Found User');
         $mail->addAddress($finder_email);
@@ -45,10 +54,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br>
             <p>Kindly verify the claim and respond accordingly.</p>";
 
-        $mail->send();
-        echo "<script>alert('Claim request sent successfully!'); window.location.href = 'fetch_found_items.php';</script>";
+        if ($mail->send()) {
+            echo "<script>alert('Claim request sent successfully!'); window.location.href = 'fetch_found_items.php';</script>";
+        } else {
+            echo "<script>alert('Email failed to send. Please try again.');</script>";
+        }
+
     } catch (Exception $e) {
-        echo "Failed to send email. Error: {$mail->ErrorInfo}";
+        echo "Failed to send email. Error: " . $mail->ErrorInfo;
     }
 }
 ?>
+
